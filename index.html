@@ -24,6 +24,8 @@
   th { background: rgba(128,128,128,0.12); }
   ul { padding-left: 1.3em; }
   .note { background: rgba(128,128,128,0.08); padding: 12px 16px; border-radius: 8px; margin: 1em 0; }
+  .legal-basis { font-size: 0.88rem; color: #555; }
+  @media (prefers-color-scheme: dark) { .legal-basis { color: #aaa; } }
 </style>
 </head>
 <body>
@@ -33,15 +35,17 @@
 Stand: 24. September 2026</p>
 
 <p>Diese Datenschutzerklärung beschreibt, wie die App „VokabelScan" (nachfolgend
-„die App") mit Daten umgeht. Die App wird angeboten von
-[Name des Entwicklers / Impressum], [Adresse] (nachfolgend „Anbieter").</p>
+„die App") mit personenbezogenen Daten umgeht. Die App wird angeboten von
+[Name des Entwicklers], [Adresse] (nachfolgend „Anbieter").</p>
 
 <div class="note">
-<strong>Kurzfassung:</strong> Die App sammelt keine personenbezogenen Daten
-über deine Apple-ID hinaus. Fotos werden zur Erkennung an einen Server
-gesendet, aber nicht gespeichert. Deine Vokabeln liegen auf deinem Gerät und –
-falls aktiviert – in deiner iCloud. Es gibt keine Werbung, kein Tracking und
-keine Analytics.
+<strong>Kurzfassung:</strong> Für die Nutzung der App ist kein Benutzerkonto
+erforderlich. Die meisten Lerndaten werden ausschließlich auf deinem Gerät
+bzw. – wenn aktiviert – in deiner persönlichen iCloud gespeichert. Für die
+Vokabelerkennung wird das ausgewählte Bild vorübergehend an unsere
+Serverinfrastruktur sowie einen KI-Dienst übertragen. Zur
+Missbrauchsvermeidung wird außerdem deine IP-Adresse für maximal 48 Stunden
+verarbeitet. Es gibt keine Werbung, kein Tracking und keine Analytics.
 </div>
 
 <h2>1. Verantwortlicher</h2>
@@ -49,45 +53,97 @@ keine Analytics.
 [Adresse]<br>
 E-Mail: [E-Mail-Adresse]</p>
 
-<h2>2. Welche Daten werden verarbeitet?</h2>
+<h2>2. Rechtsgrundlagen der Verarbeitung</h2>
+<p>Die App verarbeitet personenbezogene Daten auf folgenden Rechtsgrundlagen:</p>
+<table>
+  <tr><th>Verarbeitung</th><th>Zweck</th><th>Rechtsgrundlage</th></tr>
+  <tr>
+    <td>Übertragung des Fotos zur Vokabelerkennung</td>
+    <td>Durchführung der vom Nutzer gewünschten Erkennung</td>
+    <td>Art. 6 Abs. 1 lit. b DSGVO (Vertragsdurchführung / vorvertragliche Maßnahmen)</td>
+  </tr>
+  <tr>
+    <td>Speicherung der Vokabeln lokal / iCloud</td>
+    <td>Bereitstellung der Lernfunktion</td>
+    <td>Art. 6 Abs. 1 lit. b DSGVO</td>
+  </tr>
+  <tr>
+    <td>Premium-Abo-Status</td>
+    <td>Freischaltung erweiterter Funktionen</td>
+    <td>Art. 6 Abs. 1 lit. b DSGVO</td>
+  </tr>
+  <tr>
+    <td>IP-basiertes Rate-Limiting</td>
+    <td>Schutz vor automatisiertem Missbrauch und unbegrenzten API-Kosten</td>
+    <td>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)</td>
+  </tr>
+</table>
+<p><strong>Berechtigtes Interesse</strong> beim Rate-Limiting (lit. f): Schutz
+der technischen Infrastruktur sowie Begrenzung missbräuchlich verursachter
+Kosten für externe API-Aufrufe.</p>
+<p>Für die Kernfunktionen der App wird <strong>keine datenschutzrechtliche
+Einwilligung</strong> als Rechtsgrundlage vorausgesetzt.</p>
 
-<h3>2.1 Fotos zur Vokabel-Erkennung</h3>
+<h2>3. Welche Daten werden verarbeitet?</h2>
+
+<h3>3.1 Fotos zur Vokabel-Erkennung</h3>
 <p>Wenn du eine Lehrbuch-Seite fotografierst oder ein Foto auswählst, wird
-dieses Bild als JPEG über eine verschlüsselte HTTPS-Verbindung an einen Server
-(Cloudflare Worker, <code>vokabelscan-api.c-sothmann.workers.dev</code>)
-gesendet. Dort wird das Bild an den KI-Dienst <strong>OpenRouter</strong>
-weitergeleitet, um die Vokabeln zu erkennen.</p>
-<ul>
-  <li>Das Foto wird <strong>nicht dauerhaft gespeichert</strong> – weder auf
-      dem Server noch in der Datenbank des Anbieters. Es existiert nur
-      während der Verarbeitung im Arbeitsspeicher.</li>
-  <li>Die erkannten Vokabelpaare (Text) werden an die App zurückgesendet und
-      dort gespeichert (siehe 2.2).</li>
-</ul>
+dieses Bild als JPEG über eine verschlüsselte HTTPS-Verbindung an einen
+Cloudflare Worker (unsere Serverinfrastruktur,
+<code>vokabelscan-api.c-sothmann.workers.dev</code>) gesendet.</p>
+<p><strong>Wichtig:</strong> Ein hochgeladenes Foto kann personenbezogene Daten
+enthalten – etwa Namen, handschriftliche Notizen, Gesichter oder andere
+Angaben auf der fotografierten Seite. Bitte fotografiere ausschließlich die
+Vokabelseite und achte darauf, dass keine Personen, Namen oder persönlichen
+Notizen auf dem Bild zu sehen sind. Die App zeigt vor jedem Scan einen
+entsprechenden Hinweis an.</p>
 
-<h3>2.2 Vokabeln und Lernfortschritt</h3>
+<p><strong>Verarbeitungskette:</strong><br>
+App → Cloudflare Worker → OpenRouter → KI-Modellanbieter → OpenRouter →
+Cloudflare Worker → App</p>
+
+<p><strong>Speicherung:</strong> Der Anbieter selbst speichert das übertragene
+Bild weder dauerhaft noch in einer Datenbank. Im Cloudflare Worker wird das
+Bild ausschließlich zur Bearbeitung der Anfrage im Arbeitsspeicher verarbeitet.
+Zur KI-Analyse wird das Bild an <strong>OpenRouter Inc.</strong> und den
+eingesetzten KI-Modellanbieter übertragen. Für deren Verarbeitung und
+etwaige technisch oder rechtlich bedingte kurzfristige Speicherung (z. B.
+Missbrauchserkennung, Sicherheitsprüfung, Abrechnung) gelten die dort
+beschriebenen Bedingungen.</p>
+
+<p><strong>Zero Data Retention (ZDR):</strong> Die Verarbeitung erfolgt unter
+Verwendung einer Zero-Data-Retention-Konfiguration. OpenRouter wird angewiesen,
+ausschließlich Model-Anbieter zu nutzen, die die übertragenen Bilddaten nach
+Abschluss der Verarbeitung nicht über das erforderliche Maß hinaus speichern
+(kein Training, keine dauerhafte Protokollierung). Ein Fallback auf
+Non-ZDR-Anbieter ist technisch ausgeschlossen.</p>
+
+<h3>3.2 Vokabeln und Lernfortschritt</h3>
 <p>Erkannte Vokabeln, von dir manuell angelegte Einträge sowie dein
 Lernfortschritt (Status, richtige Antworten, Zeitstempel) werden lokal auf
 deinem Gerät gespeichert (SwiftData).</p>
 <p>Wenn du iCloud aktiviert hast, werden diese Daten über <strong>Apple
-CloudKit</strong> mit deinen anderen Geräten synchronisiert. Der Zugriff auf
-diese Daten erfolgt ausschließlich über deine Apple-ID. Apple verschlüsselt
-CloudKit-Daten während der Übertragung und im Ruhezustand. Der Anbieter hat
-keinen Zugriff auf deine CloudKit-Daten.</p>
+CloudKit</strong> mit deinen anderen Geräten synchronisiert. Die
+synchronisierten Lerndaten werden in der <strong>privaten iCloud-Umgebung</strong>
+des Nutzers gespeichert. VokabelScan betreibt hierfür keine eigene
+Nutzerdatenbank. Der Zugriff erfolgt über die vom Betriebssystem
+bereitgestellte Apple-iCloud-Umgebung.</p>
 
-<h3>2.3 Scan-Kontingent-Zähler</h3>
-<p>Um geräteübergreifend nachzuverziehen, wie viele Gratis-Scans du bereits
+<h3>3.3 Scan-Kontingent-Zähler</h3>
+<p>Um geräteübergreifend nachzuverfolgen, wie viele Gratis-Scans du bereits
 verwendet hast, speichert die App einen Zähler (z. B. „3 von 5") im iCloud
-Key-Value Store und lokal auf dem Gerät. Dies sind reine Zahlenwerte ohne
-personenbezogenen Bezug über die Apple-ID-Verknüpfung hinaus.</p>
+Key-Value Store und lokal auf dem Gerät. Der Zähler enthält keine Namen,
+E-Mail-Adressen oder sonstigen unmittelbar identifizierenden Angaben. Er wird
+jedoch im persönlichen iCloud-Key-Value-Store des Nutzers gespeichert und ist
+damit innerhalb der Apple-ID-/Gerätebeziehung dem Nutzer zuordenbar.</p>
 
-<h3>2.4 Premium-Abo</h3>
+<h3>3.4 Premium-Abo</h3>
 <p>Der Kauf und die Verwaltung des Premium-Abo erfolgt über <strong>Apple
 StoreKit</strong>. Alle Zahlungs- und Transaktionsdaten liegen bei Apple. Die
 App erfährt ausschließlich, ob ein Abo aktiv ist oder nicht. Es werden keine
-Zahlungsdaten verarbeitet.</p>
+Zahlungsdaten durch die App oder den Anbieter verarbeitet.</p>
 
-<h3>2.5 Geräte-Berechtigungen</h3>
+<h3>3.5 Geräte-Berechtigungen</h3>
 <table>
   <tr><th>Berechtigung</th><th>Zweck</th></tr>
   <tr><td>Kamera</td><td>Fotografieren einer Lehrbuch-Seite</td></tr>
@@ -98,15 +154,31 @@ Zahlungsdaten verarbeitet.</p>
 erteilt (iOS-Systemdialog) und können jederzeit in den iOS-Einstellungen
 widerrufen werden.</p>
 
-<h2>3. Serverseitiges Rate-Limiting (IP-Adresse)</h2>
-<p>Zum Schutz vor Missbrauch wird bei jedem Erkennungs-Request deine
-IP-Adresse zusammen mit dem Datum als Zähler in Cloudflare Workers KV
-gespeichert (Schlüssel: <code>scans:&lt;IP&gt;:&lt;Datum&gt;</code>). Dieser
-Zähler wird nach <strong>48 Stunden automatisch gelöscht</strong>. Die
+<h2>4. Serverseitige Verarbeitung (Cloudflare)</h2>
+<p>Bei Cloudflare werden zwei getrennte Verarbeitungen unterschieden:</p>
+
+<h3>4.1 Bereitstellung der KI-Schnittstelle (Cloudflare Worker)</h3>
+<p>Unsere API wird über Cloudflare Workers betrieben. Dabei werden technisch
+notwendige Netzwerk- und Requestdaten verarbeitet. Das hochgeladene Bild wird
+vom Worker an OpenRouter weitergeleitet und von uns dort nicht dauerhaft
+gespeichert.</p>
+<p class="legal-basis">Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO
+(Vertragsdurchführung).</p>
+
+<h3>4.2 Missbrauchsschutz / Rate-Limiting (Cloudflare Workers KV)</h3>
+<p>Zum Schutz vor automatisiertem Missbrauch und unbegrenzten API-Kosten wird
+bei jedem Erkennungs-Request deine <strong>IP-Adresse</strong> – ein
+personenbezogenes Datum – zusammen mit dem Datum als Zähler gespeichert
+(Schlüssel: <code>scans:&lt;IP&gt;:&lt;Datum&gt;</code>) in Cloudflare Workers KV.
+Dieser Zähler wird nach <strong>48 Stunden automatisch gelöscht</strong>. Die
 IP-Adresse wird nicht mit anderen Daten verknüpft und nicht für andere Zwecke
 verwendet.</p>
+<p class="legal-basis">Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+Interest). Berechtigtes Interesse: Schutz der technischen Infrastruktur sowie
+Begrenzung missbräuchlich verursachter API-Kosten. Speicherdauer: max. 48
+Stunden.</p>
 
-<h2>4. Was nicht gesammelt wird</h2>
+<h2>5. Was nicht gesammelt wird</h2>
 <ul>
   <li>Keine Analytics- oder Tracking-Verfahren</li>
   <li>Keine Werbe-SDKs</li>
@@ -117,71 +189,122 @@ verwendet.</p>
   <li>Keine Werbe-Kennung (IDFA)</li>
 </ul>
 
-<h2>5. Drittanbieter</h2>
-<p>Die App nutzt folgende Dienste Dritter, die jeweils ihren eigenen
-Datenschutzbestimmungen unterliegen:</p>
-<table>
-  <tr><th>Dienst</th><th>Zweck</th><th>Welche Daten</th></tr>
-  <tr><td>Apple iCloud (CloudKit)</td><td>Sync deiner Lerndaten</td><td>Vokabeln, Lernstatus, Zähler – nur über deine Apple-ID zugänglich</td></tr>
-  <tr><td>Apple StoreKit</td><td>Abo-Abwicklung</td><td>Nur Abo-Status (aktiv/inaktiv); Zahlungsdaten bei Apple</td></tr>
-  <tr><td>Cloudflare (Worker)</td><td>Server-Hosting</td><td>IP-Adresse (Rate-Limit, 48 h), Request-Metadaten</td></tr>
-  <tr><td>OpenRouter</td><td>KI-Modell zur Bilderkennung</td><td>Foto (zur Verarbeitung)</td></tr>
-</table>
-<p>Verweise auf die Datenschutzbestimmungen der Drittanbieter:</p>
-<ul>
-  <li>Apple: <a href="https://www.apple.com/legal/privacy/de/">apple.com/legal/privacy</a></li>
-  <li>Cloudflare: <a href="https://www.cloudflare.com/de-de/privacypolicy/">cloudflare.com/privacypolicy</a></li>
-  <li>OpenRouter: <a href="https://openrouter.ai/privacy">openrouter.ai/privacy</a></li>
-</ul>
+<h2>6. Eingesetzte Auftragsverarbeiter und Drittanbieter</h2>
+<p>Die App nutzt folgende Dienste Dritter, die als
+<strong>Auftragsverarbeiter (Art. 28 DSGVO)</strong> oder als weitere Empfänger
+innerhalb der Verarbeitungskette tätig werden:</p>
 
-<h2>6. Aufbewahrung und Löschung</h2>
+<h3>6.1 Apple iCloud (CloudKit)</h3>
+<p>Synchronisation deiner Lerndaten und Kontingent-Zähler. Die Daten werden in
+der privaten CloudKit-Datenbank des Nutzers gespeichert und sind nur über die
+Apple-ID zugänglich. Es gilt die
+<a href="https://www.apple.com/legal/privacy/de/">Datenschutzerklärung von Apple</a>.</p>
+
+<h3>6.2 Apple StoreKit</h3>
+<p>Abo-Abwicklung. Zahlungsdaten liegen bei Apple; die App erhält nur den
+Abo-Status (aktiv/inaktiv). Es gilt die
+<a href="https://www.apple.com/legal/privacy/de/">Datenschutzerklärung von Apple</a>.</p>
+
+<h3>6.3 Cloudflare Inc. (Auftragsverarbeiter)</h3>
+<p>Betrieb des API-Workers (Verarbeitung des Fotos, Weiterleitung an
+OpenRouter) und Speicherung der Rate-Limit-Zähler in Workers KV. Ein
+Data Processing Addendum (DPA) ist Vertragsbestandteil. Es gilt die
+<a href="https://www.cloudflare.com/de-de/privacypolicy/">Datenschutzerklärung von Cloudflare</a>.</p>
+
+<h3>6.4 OpenRouter Inc. (Auftragsverarbeiter)</h3>
+<p>Für die KI-gestützte Vokabelerkennung wird das Bild an OpenRouter
+übertragen. OpenRouter leitet die Eingabe zur Verarbeitung an den jeweils
+eingesetzten KI-Modellanbieter weiter. Die Verarbeitung erfolgt unter einer
+<strong>Zero-Data-Retention-Konfiguration</strong>, sodass die übertragenen
+Bilddaten beim Model-Anbieter nicht über die zur Durchführung der Anfrage
+notwendige Verarbeitung hinaus gespeichert werden. Die angeschlossenen
+Model-Anbieter sind weitere Empfänger innerhalb der Verarbeitungskette. Ein
+DPA ist über die OpenRouter-Nutzungsbedingungen eingebunden. Es gilt die
+<a href="https://openrouter.ai/privacy">Datenschutzerklärung von OpenRouter</a>.</p>
+
+<p>Die Verlinkungen der Datenschutzerklärungen der Drittanbieter ergänzen diese
+Informationen, ersetzen aber nicht die hiesigen Informationspflichten.</p>
+
+<h2>7. Datenübermittlung in Drittländer</h2>
+<p>Cloudflare Inc. und OpenRouter Inc. sind US-Unternehmen. Bei Nutzung deren
+Dienste kann eine Verarbeitung personenbezogener Daten außerhalb des
+Europäischen Wirtschaftsraums (EWR) stattfinden.</p>
+<p>Soweit eine Übermittlung in Drittländer erfolgt, basiert diese auf
+angemessenen Garantien nach Art. 46 DSGVO, insbesondere den
+<strong>Standardvertragsklauseln der Europäischen Kommission</strong>:</p>
+<ul>
+  <li><strong>Cloudflare:</strong> EU-Standardvertragsklauseln im Rahmen des
+      Data Processing Addendum.</li>
+  <li><strong>OpenRouter:</strong> EU-Standardvertragsklauseln (Module 2
+      Controller → Processor) im Rahmen des DPA.</li>
+</ul>
+<p>Welche zusätzliche Angemessenheitsgrundlage konkret greift, richtet sich
+nach der jeweiligen Vertragskonfiguration.</p>
+
+<h2>8. Aufbewahrung und Löschung</h2>
 <table>
   <tr><th>Daten</th><th>Speicherort</th><th>Aufbewahrung</th></tr>
   <tr><td>Vokabeln / Lernfortschritt</td><td>Gerät + iCloud</td><td>Bis du sie in der App löschst</td></tr>
   <tr><td>Scan-Kontingent-Zähler</td><td>iCloud KVS + Gerät</td><td>Bis App-Deinstallation oder Reset</td></tr>
   <tr><td>Rate-Limit-Zähler (IP)</td><td>Cloudflare KV</td><td>48 Stunden, danach automatische Löschung</td></tr>
-  <tr><td>Fotos</td><td>Nirgends gespeichert</td><td>Nur im Verarbeitungstransit (Sekunden)</td></tr>
+  <tr><td>Fotos</td><td>Nicht dauerhaft gespeichert</td><td>Nur im Verarbeitungstransit; Anbieter speichert nicht. Kurzfristige Speicherung bei OpenRouter/Model-Anbieter möglich (ZDR-konfiguriert, s. Abschnitt 3.1)</td></tr>
 </table>
 <p>Du kannst deine Vokabeln und Scans jederzeit innerhalb der App löschen.
 Wenn iCloud aktiv ist, wird die Löschung auf alle deine Geräte synchronisiert.
 Die Deinstallation der App entfernt alle lokalen Daten.</p>
 
-<h2>7. Deine Rechte (DSGVO / GDPR)</h2>
+<h2>9. Deine Rechte (DSGVO / GDPR)</h2>
 <p>Du hast folgende Rechte hinsichtlich deiner personenbezogenen Daten:</p>
 <ul>
-  <li><strong>Auskunft</strong> über die verarbeiteten Daten</li>
-  <li><strong>Berichtigung</strong> unrichtiger Daten</li>
-  <li><strong>Löschung</strong> deiner Daten</li>
-  <li><strong>Einschränkung</strong> der Verarbeitung</li>
-  <li><strong>Datenübertragbarkeit</strong></li>
-  <li><strong>Widerspruch</strong> gegen die Verarbeitung</li>
+  <li><strong>Auskunft</strong> über die verarbeiteten Daten (Art. 15 DSGVO)</li>
+  <li><strong>Berichtigung</strong> unrichtiger Daten (Art. 16 DSGVO)</li>
+  <li><strong>Löschung</strong> deiner Daten (Art. 17 DSGVO)</li>
+  <li><strong>Einschränkung</strong> der Verarbeitung (Art. 18 DSGVO)</li>
+  <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+  <li><strong>Widerspruch</strong> gegen die Verarbeitung, die auf Art. 6
+      Abs. 1 lit. f DSGVO beruht (Art. 21 DSGVO) — dies betrifft insbesondere
+      das IP-basierte Rate-Limiting</li>
+  <li><strong>Beschwerderecht bei einer Datenschutzaufsichtsbehörde</strong>
+      (Art. 77 DSGVO). Zuständig ist die Aufsichtsbehörde an deinem
+      Aufenthaltsort oder am Ort des Verantwortlichen, voraussichtlich das
+      <em>Unabhängige Landeszentrum für Datenschutz Schleswig-Holstein (ULD)</em>,
+      [Adresse der Behörde].</li>
 </ul>
 <p>Da deine Lerndaten ausschließlich lokal und in deiner persönlichen iCloud
-liegen, kannst du die meisten Rechte direkt in der App oder über die
-iCloud-Einstellungen deines Geräts ausüben. Für Anfragen an den Anbieter
-wende dich an die in Abschnitt 1 genannte E-Mail-Adresse.</p>
+liegen, kannst du viele Rechte direkt in der App oder über die
+iCloud-Einstellungen deines Geräts ausüben. Darüber hinaus kannst du jederzeit
+Anfragen an den Anbieter richten (siehe Abschnitt 1). Dies gilt insbesondere
+für Auskünfte zu serverseitigen Verarbeitungen (IP-Verarbeitung,
+OpenRouter-Weiterleitung), die nicht in der App sichtbar sind.</p>
 
-<h2>8. Kinder und Jugendliche</h2>
-<p>Die App richtet sich auch an Schülerinnen und Schüler, die minderjährig
-sein können. Es werden keine personenbezogenen Daten über die implizite
-Apple-ID-Verknüpfung (iCloud) hinaus gesammelt. Eine Konto-Erstellung ist
-nicht erforderlich. Abo-Käufe werden über Apple StoreKit abgewickelt, der
-eigene Alters- und Freigabeprozesse durchführt.</p>
+<h2>10. Kinder und Jugendliche</h2>
+<p>Die App kann auch von Minderjährigen genutzt werden. Für die Kernfunktionen
+der App wird keine datenschutzrechtliche Einwilligung als Rechtsgrundlage
+vorausgesetzt; die Verarbeitung basiert auf Art. 6 Abs. 1 lit. b DSGVO
+(Vertragsdurchführung). Soweit für einzelne zukünftige Funktionen eine
+Einwilligung erforderlich sein sollte, werden die besonderen gesetzlichen
+Anforderungen für Minderjährige nach Art. 8 DSGVO berücksichtigt. Abo-Käufe
+werden über Apple StoreKit abgewickelt.</p>
+<p>Zum Schutz Minderjähriger zeigt die App vor jedem Scan einen Hinweis an,
+dass ausschließlich die Vokabelseite fotografiert werden soll und keine
+Personen, Namen oder persönlichen Notizen auf dem Bild zu sehen sein dürfen.</p>
 
-<h2>9. Änderungen dieser Datenschutzerklärung</h2>
+<h2>11. Änderungen dieser Datenschutzerklärung</h2>
 <p>Diese Datenschutzerklärung kann aktualisiert werden, wenn sich die
 Funktionsweise der App ändert oder rechtliche Anpassungen erforderlich werden.
 Die jeweils aktuelle Version ist unter der URL dieser Seite abrufbar.</p>
 
-<h2>10. Kontakt</h2>
+<h2>12. Kontakt</h2>
 <p>Bei Fragen zum Datenschutz wende dich an:<br>
 [Name]<br>
 E-Mail: [E-Mail-Adresse]</p>
 
 <hr>
 <p style="font-size:0.8em; color:#888;">
-Dies ist ein Entwurf zur fachlichen Prüfung (Stand: 24.09.2026).
-Die mit [Klammern] markierten Felder sind vor Veröffentlichung auszufüllen.
+Diese Datenschutzerklärung berücksichtigt die fachliche Vorprüfung vom
+24.09.2026 (Zero Data Retention, Rechtsgrundlagen, Drittlandtransfer,
+Auftragsverarbeiter, Minderjährigenschutz, Beschwerderecht). Die mit
+[Klammern] markierten Felder sind vor Veröffentlichung auszufüllen.
 </p>
 
 </body>
