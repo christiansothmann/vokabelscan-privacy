@@ -68,7 +68,7 @@ E-Mail: [E-Mail-Adresse]</p>
     <td>Art. 6 Abs. 1 lit. b DSGVO</td>
   </tr>
   <tr>
-    <td>Premium-Abo-Status</td>
+    <td>Premium-Abonnements-Status</td>
     <td>Freischaltung erweiterter Funktionen</td>
     <td>Art. 6 Abs. 1 lit. b DSGVO</td>
   </tr>
@@ -106,17 +106,18 @@ Cloudflare Worker → App</p>
 Bild weder dauerhaft noch in einer Datenbank. Im Cloudflare Worker wird das
 Bild ausschließlich zur Bearbeitung der Anfrage im Arbeitsspeicher verarbeitet.
 Zur KI-Analyse wird das Bild an <strong>OpenRouter Inc.</strong> und den
-eingesetzten KI-Modellanbieter übertragen. Für deren Verarbeitung und
-etwaige technisch oder rechtlich bedingte kurzfristige Speicherung (z. B.
-Missbrauchserkennung, Sicherheitsprüfung, Abrechnung) gelten die dort
-beschriebenen Bedingungen.</p>
+eingesetzten KI-Modellanbieter übertragen.</p>
 
-<p><strong>Zero Data Retention (ZDR):</strong> Die Verarbeitung erfolgt unter
-Verwendung einer Zero-Data-Retention-Konfiguration. OpenRouter wird angewiesen,
-ausschließlich Model-Anbieter zu nutzen, die die übertragenen Bilddaten nach
-Abschluss der Verarbeitung nicht über das erforderliche Maß hinaus speichern
-(kein Training, keine dauerhafte Protokollierung). Ein Fallback auf
-Non-ZDR-Anbieter ist technisch ausgeschlossen.</p>
+<p><strong>Zero Data Retention (ZDR):</strong> Für die KI-Verarbeitung wird
+technisch Zero Data Retention erzwungen. Dadurch werden ausschließlich
+KI-Provider-Endpunkte verwendet, die die übermittelten Eingaben und erzeugten
+Antworten nach Abschluss der Verarbeitung nicht dauerhaft speichern.
+Zusätzlich wird die Verarbeitung von Inhalten für Modell-Training oder
+-Verbesserung untersagt (<code>data_collection: "deny"</code>).
+OpenRouter kann technische Metadaten der Anfrage, beispielsweise verwendetes
+Modell, Tokenanzahl, Verarbeitungsdauer und Kosteninformationen, verarbeiten.
+Ein Fallback auf einen nicht ZDR-fähigen Provider ist technisch
+ausgeschlossen.</p>
 
 <h3>3.2 Vokabeln und Lernfortschritt</h3>
 <p>Erkannte Vokabeln, von dir manuell angelegte Einträge sowie dein
@@ -137,8 +138,8 @@ E-Mail-Adressen oder sonstigen unmittelbar identifizierenden Angaben. Er wird
 jedoch im persönlichen iCloud-Key-Value-Store des Nutzers gespeichert und ist
 damit innerhalb der Apple-ID-/Gerätebeziehung dem Nutzer zuordenbar.</p>
 
-<h3>3.4 Premium-Abo</h3>
-<p>Der Kauf und die Verwaltung des Premium-Abo erfolgt über <strong>Apple
+<h3>3.4 Premium-Abonnements</h3>
+<p>Der Kauf und die Verwaltung des Premium-Abonnements erfolgt über <strong>Apple
 StoreKit</strong>. Alle Zahlungs- und Transaktionsdaten liegen bei Apple. Die
 App erfährt ausschließlich, ob ein Abo aktiv ist oder nicht. Es werden keine
 Zahlungsdaten durch die App oder den Anbieter verarbeitet.</p>
@@ -174,7 +175,7 @@ Dieser Zähler wird nach <strong>48 Stunden automatisch gelöscht</strong>. Die
 IP-Adresse wird nicht mit anderen Daten verknüpft und nicht für andere Zwecke
 verwendet.</p>
 <p class="legal-basis">Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
-Interest). Berechtigtes Interesse: Schutz der technischen Infrastruktur sowie
+Interesse). Berechtigtes Interesse: Schutz der technischen Infrastruktur sowie
 Begrenzung missbräuchlich verursachter API-Kosten. Speicherdauer: max. 48
 Stunden.</p>
 
@@ -229,9 +230,12 @@ Informationen, ersetzen aber nicht die hiesigen Informationspflichten.</p>
 <p>Cloudflare Inc. und OpenRouter Inc. sind US-Unternehmen. Bei Nutzung deren
 Dienste kann eine Verarbeitung personenbezogener Daten außerhalb des
 Europäischen Wirtschaftsraums (EWR) stattfinden.</p>
-<p>Soweit eine Übermittlung in Drittländer erfolgt, basiert diese auf
-angemessenen Garantien nach Art. 46 DSGVO, insbesondere den
-<strong>Standardvertragsklauseln der Europäischen Kommission</strong>:</p>
+<p>Soweit personenbezogene Daten außerhalb des Europäischen Wirtschaftsraums
+verarbeitet werden, erfolgt die Übermittlung auf Grundlage eines anwendbaren
+Angemessenheitsbeschlusses der Europäischen Kommission oder – soweit ein
+solcher nicht anwendbar ist – auf Grundlage geeigneter Garantien gemäß
+Art. 46 DSGVO, insbesondere der <strong>Standardvertragsklauseln der
+Europäischen Kommission</strong>:</p>
 <ul>
   <li><strong>Cloudflare:</strong> EU-Standardvertragsklauseln im Rahmen des
       Data Processing Addendum.</li>
@@ -247,7 +251,7 @@ nach der jeweiligen Vertragskonfiguration.</p>
   <tr><td>Vokabeln / Lernfortschritt</td><td>Gerät + iCloud</td><td>Bis du sie in der App löschst</td></tr>
   <tr><td>Scan-Kontingent-Zähler</td><td>iCloud KVS + Gerät</td><td>Bis App-Deinstallation oder Reset</td></tr>
   <tr><td>Rate-Limit-Zähler (IP)</td><td>Cloudflare KV</td><td>48 Stunden, danach automatische Löschung</td></tr>
-  <tr><td>Fotos</td><td>Nicht dauerhaft gespeichert</td><td>Nur im Verarbeitungstransit; Anbieter speichert nicht. Kurzfristige Speicherung bei OpenRouter/Model-Anbieter möglich (ZDR-konfiguriert, s. Abschnitt 3.1)</td></tr>
+  <tr><td>Fotos</td><td>Verarbeitungstransit</td><td>Der Anbieter speichert das Foto nicht dauerhaft. Bei Verwendung eines ZDR-fähigen KI-Provider-Endpunkts werden Eingabe und Antwort nach Abschluss der Verarbeitung nicht gespeichert. OpenRouter kann technische Request-Metadaten speichern; siehe Abschnitt 3.1.</td></tr>
 </table>
 <p>Du kannst deine Vokabeln und Scans jederzeit innerhalb der App löschen.
 Wenn iCloud aktiv ist, wird die Löschung auf alle deine Geräte synchronisiert.
@@ -301,10 +305,11 @@ E-Mail: [E-Mail-Adresse]</p>
 
 <hr>
 <p style="font-size:0.8em; color:#888;">
-Diese Datenschutzerklärung berücksichtigt die fachliche Vorprüfung vom
-24.09.2026 (Zero Data Retention, Rechtsgrundlagen, Drittlandtransfer,
-Auftragsverarbeiter, Minderjährigenschutz, Beschwerderecht). Die mit
-[Klammern] markierten Felder sind vor Veröffentlichung auszufüllen.
+Diese Datenschutzerklärung berücksichtigt die fachliche Vor- und Detailprüfung
+vom 24.09.2026 (Zero Data Retention, Rechtsgrundlagen, Drittlandtransfer,
+Auftragsverarbeiter, Minderjährigenschutz, Beschwerderecht, ZDR-Metadaten-
+Klärung, data_collection:deny). Die mit [Klammern] markierten Felder sind vor
+Veröffentlichung auszufüllen.
 </p>
 
 </body>
