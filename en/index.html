@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy – VokabelScan</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) { body { color: #e0e0e0; background: #1a1a1a; } a { color: #6cb6ff; } }
+  h1 { font-size: 1.6rem; margin-bottom: 0.25em; }
+  h2 { font-size: 1.2rem; margin-top: 1.8em; border-bottom: 1px solid #888; padding-bottom: 0.2em; }
+  h3 { font-size: 1.05rem; margin-top: 1.4em; }
+  .meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.92rem; }
+  th, td { border: 1px solid #aaa; padding: 6px 10px; text-align: left; }
+  th { background: rgba(128,128,128,0.12); }
+  ul { padding-left: 1.3em; }
+  .note { background: rgba(128,128,128,0.08); padding: 12px 16px; border-radius: 8px; margin: 1em 0; }
+  .legal-basis { font-size: 0.88rem; color: #555; }
+  @media (prefers-color-scheme: dark) { .legal-basis { color: #aaa; } }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="meta">VokabelScan – iOS app<br>
+Version: September 24, 2026</p>
+
+<p class="note"><strong>Note:</strong> This is a convenience translation of the
+German privacy policy. The German version
+(<a href="https://christiansothmann.github.io/vokabelscan-privacy/">Datenschutzerklärung</a>)
+is the legally authoritative text.</p>
+
+<p>This privacy policy describes how the app “VokabelScan” (hereinafter “the
+app”) handles personal data. The app is provided by Christian Sothmann,
+Ahornstr. 31, 25474 Bönningstedt, Germany (hereinafter “the provider”).</p>
+
+<div class="note">
+<strong>Summary:</strong> No user account is required to use the app. Most
+learning data is stored exclusively on your device or, if enabled, in your
+personal iCloud. For vocabulary recognition, the selected image is temporarily
+transmitted to our server infrastructure and an AI service. To prevent abuse,
+your IP address is also processed for a maximum of 48 hours. There is no
+advertising, no tracking and no analytics.
+</div>
+
+<h2>1. Controller</h2>
+<p>Christian Sothmann<br>
+Ahornstr. 31, 25474 Bönningstedt, Germany<br>
+Email: info@christian-sothmann.de</p>
+
+<h2>2. Legal bases for processing</h2>
+<p>The app processes personal data on the following legal bases:</p>
+<table>
+  <tr><th>Processing</th><th>Purpose</th><th>Legal basis</th></tr>
+  <tr>
+    <td>Transmission of the photo for vocabulary recognition</td>
+    <td>Performing the recognition requested by the user</td>
+    <td>Art. 6(1)(b) GDPR (contract performance / pre-contractual measures)</td>
+  </tr>
+  <tr>
+    <td>Storage of vocabulary locally / iCloud</td>
+    <td>Providing the learning function</td>
+    <td>Art. 6(1)(b) GDPR</td>
+  </tr>
+  <tr>
+    <td>Premium subscription status</td>
+    <td>Unlocking extended features</td>
+    <td>Art. 6(1)(b) GDPR</td>
+  </tr>
+  <tr>
+    <td>IP-based rate limiting</td>
+    <td>Protection against automated abuse and unlimited API costs</td>
+    <td>Art. 6(1)(f) GDPR (legitimate interest)</td>
+  </tr>
+</table>
+<p><strong>Legitimate interest</strong> for rate limiting (lit. f): protection
+of the technical infrastructure and limiting abuse-induced costs for external
+API calls.</p>
+<p>For the core functions of the app, <strong>no data-protection consent</strong>
+is required as a legal basis.</p>
+
+<h2>3. What data is processed?</h2>
+
+<h3>3.1 Photos for vocabulary recognition</h3>
+<p>When you photograph a textbook page or select a photo, this image is sent as
+a JPEG via an encrypted HTTPS connection to a Cloudflare Worker (our server
+infrastructure).</p>
+<p><strong>Important:</strong> An uploaded photo may contain personal data –
+such as names, handwritten notes, faces or other information on the photographed
+page. Please photograph only the vocabulary page and make sure that no people,
+names or personal notes are visible in the image. The app shows a corresponding
+notice before each scan.</p>
+
+<p><strong>Processing chain:</strong><br>
+App → Cloudflare Worker → OpenRouter → AI model provider → OpenRouter →
+Cloudflare Worker → App</p>
+
+<p><strong>Storage:</strong> The provider itself does not permanently store the
+transmitted image, nor in a database. In the Cloudflare Worker, the image is
+processed only in memory to handle the request. For AI analysis, the image is
+transmitted to <strong>OpenRouter Inc.</strong> and the AI model provider
+used.</p>
+
+<p><strong>Zero Data Retention (ZDR):</strong> Zero Data Retention is enforced
+technically for AI processing. This means only AI provider endpoints are used
+that do not permanently store the transmitted inputs and generated outputs after
+processing is completed. In addition, the use of content for model training or
+improvement is prohibited (<code>data_collection: "deny"</code>). OpenRouter may
+process technical metadata of the request, such as the model used, token count,
+processing duration and cost information. A fallback to a non-ZDR-capable
+provider is technically excluded.</p>
+
+<h3>3.2 Vocabulary and learning progress</h3>
+<p>Recognized vocabulary, entries you created manually, and your learning
+progress (status, correct answers, timestamps) are stored locally on your device
+(SwiftData).</p>
+<p>If you have iCloud enabled, this data is synchronized across your other
+devices via <strong>Apple CloudKit</strong>. The synchronized learning data is
+stored in the user's <strong>private iCloud environment</strong>. VokabelScan
+does not operate its own user database for this. Access is provided through the
+Apple iCloud environment made available by the operating system.</p>
+
+<h3>3.3 Scan quota counters</h3>
+<p>To track across devices how many free scans you have already used, the app
+stores a counter (e.g. “3 of 5”) in the iCloud Key-Value Store and locally on
+the device. The counter contains no names, email addresses or other directly
+identifying information. However, it is stored in the user's personal iCloud
+Key-Value Store and is therefore attributable to the user within the Apple
+ID/device relationship.</p>
+
+<h3>3.4 Premium subscriptions</h3>
+<p>The purchase and management of the Premium subscription takes place via
+<strong>Apple StoreKit</strong>. All payment and transaction data remains with
+Apple. The app only learns whether a subscription is active or not. No payment
+data is processed by the app or the provider.</p>
+
+<h3>3.5 Device permissions</h3>
+<table>
+  <tr><th>Permission</th><th>Purpose</th></tr>
+  <tr><td>Camera</td><td>Photographing a textbook page</td></tr>
+  <tr><td>Photo selection</td><td>Selecting an existing photo (iOS system picker)</td></tr>
+  <tr><td>iCloud</td><td>Syncing your vocabulary and counters between devices</td></tr>
+</table>
+<p>All permissions are granted only with your explicit consent (iOS system
+dialog) and can be revoked at any time in iOS settings.</p>
+
+<h2>4. Server-side processing (Cloudflare)</h2>
+<p>Two separate processing operations are distinguished at Cloudflare:</p>
+
+<h3>4.1 Provision of the AI interface (Cloudflare Worker)</h3>
+<p>Our API is operated via Cloudflare Workers. Technically necessary network and
+request data is processed. The uploaded image is forwarded by the Worker to
+OpenRouter and is not permanently stored by us there.</p>
+<p class="legal-basis">Legal basis: Art. 6(1)(b) GDPR (contract performance).</p>
+
+<h3>4.2 Abuse protection / rate limiting (Cloudflare Workers KV)</h3>
+<p>To protect against automated abuse and unlimited API costs, your
+<strong>IP address</strong> – a piece of personal data – is stored together
+with the date as a counter (key: <code>scans:&lt;IP&gt;:&lt;date&gt;</code>) in
+Cloudflare Workers KV with each recognition request. This counter is
+<strong>automatically deleted after 48 hours</strong>. The IP address is not
+linked with other data and is not used for other purposes.</p>
+<p class="legal-basis">Legal basis: Art. 6(1)(f) GDPR (legitimate interest).
+Legitimate interest: protection of the technical infrastructure and limiting
+abuse-induced API costs. Storage period: max. 48 hours.</p>
+
+<h2>5. What is not collected</h2>
+<ul>
+  <li>No analytics or tracking techniques</li>
+  <li>No advertising SDKs</li>
+  <li>No account creation (no email, no name, no password)</li>
+  <li>No cookies</li>
+  <li>No location data</li>
+  <li>No contact data or address book access</li>
+  <li>No advertising identifier (IDFA)</li>
+</ul>
+
+<h2>6. Processors and third parties used</h2>
+<p>The app uses the following third-party services, which act as
+<strong>processors (Art. 28 GDPR)</strong> or as further recipients within the
+processing chain:</p>
+
+<h3>6.1 Apple iCloud (CloudKit)</h3>
+<p>Syncing your learning data and quota counters. The data is stored in the
+user's private CloudKit database and is only accessible via the Apple ID. The
+<a href="https://www.apple.com/legal/privacy/en/">Apple privacy policy</a>
+applies.</p>
+
+<h3>6.2 Apple StoreKit</h3>
+<p>Subscription handling. Payment data remains with Apple; the app only receives
+the subscription status (active/inactive). The
+<a href="https://www.apple.com/legal/privacy/en/">Apple privacy policy</a>
+applies.</p>
+
+<h3>6.3 Cloudflare Inc. (processor)</h3>
+<p>Operation of the API worker (processing the photo, forwarding to OpenRouter)
+and storage of the rate-limit counters in Workers KV. A Data Processing
+Addendum (DPA) is part of the contract. The
+<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>
+applies.</p>
+
+<h3>6.4 OpenRouter Inc. (processor)</h3>
+<p>For AI-supported vocabulary recognition, the image is transmitted to
+OpenRouter. OpenRouter forwards the input to the respectively used AI model
+provider for processing. Processing takes place under a
+<strong>Zero-Data-Retention configuration</strong>, so that the transmitted
+image data is not stored at the model provider beyond what is necessary to carry
+out the request. The connected model providers are further recipients within the
+processing chain. A DPA is incorporated via the OpenRouter terms of use. The
+<a href="https://openrouter.ai/privacy">OpenRouter privacy policy</a> applies.</p>
+
+<p>The links to the third-party privacy policies supplement this information but
+do not replace the information obligations here.</p>
+
+<h2>7. Data transfers to third countries</h2>
+<p>Cloudflare Inc. and OpenRouter Inc. are US companies. When using their
+services, personal data may be processed outside the European Economic Area
+(EEA).</p>
+<p>Where personal data is processed outside the European Economic Area, the
+transfer takes place on the basis of an applicable adequacy decision by the
+European Commission or, where such a decision is not applicable, on the basis of
+appropriate safeguards pursuant to Art. 46 GDPR, in particular the
+<strong>Standard Contractual Clauses of the European Commission</strong>:</p>
+<ul>
+  <li><strong>Cloudflare:</strong> EU Standard Contractual Clauses within the
+      framework of the Data Processing Addendum.</li>
+  <li><strong>OpenRouter:</strong> EU Standard Contractual Clauses (Module 2
+      Controller → Processor) within the framework of the DPA.</li>
+</ul>
+<p>Which additional adequacy basis applies in a specific case depends on the
+respective contract configuration.</p>
+
+<h2>8. Retention and deletion</h2>
+<table>
+  <tr><th>Data</th><th>Storage location</th><th>Retention</th></tr>
+  <tr><td>Vocabulary / learning progress</td><td>Device + iCloud</td><td>Until you delete it in the app</td></tr>
+  <tr><td>Scan quota counter</td><td>iCloud KVS + device</td><td>Until app uninstall or reset</td></tr>
+  <tr><td>Rate-limit counter (IP)</td><td>Cloudflare KV</td><td>48 hours, then automatic deletion</td></tr>
+  <tr><td>Photos</td><td>Processing transit</td><td>The provider does not permanently store the photo. When a ZDR-capable AI provider endpoint is used, input and output are not stored after processing is completed. OpenRouter may store technical request metadata; see section 3.1.</td></tr>
+</table>
+<p>You can delete your vocabulary and scans at any time within the app. If iCloud
+is enabled, the deletion is synchronized across all your devices. Uninstalling
+the app removes all local data.</p>
+
+<h2>9. Your rights (GDPR)</h2>
+<p>You have the following rights regarding your personal data:</p>
+<ul>
+  <li><strong>Access</strong> to the processed data (Art. 15 GDPR)</li>
+  <li><strong>Rectification</strong> of incorrect data (Art. 16 GDPR)</li>
+  <li><strong>Erasure</strong> of your data (Art. 17 GDPR)</li>
+  <li><strong>Restriction</strong> of processing (Art. 18 GDPR)</li>
+  <li><strong>Data portability</strong> (Art. 20 GDPR)</li>
+  <li><strong>Objection</strong> to processing based on Art. 6(1)(f) GDPR
+      (Art. 21 GDPR) — this applies in particular to IP-based rate limiting</li>
+  <li><strong>Right to lodge a complaint with a supervisory authority</strong>
+      (Art. 77 GDPR). The competent authority is the supervisory authority at
+      your place of residence or at the controller's place of establishment,
+      presumably the <em>Independent State Center for Data Privacy Schleswig-
+      Holstein (ULD)</em>, Holstenstraße 98, 24103 Kiel, Germany,
+      https://www.datenschutzzentrum.de.</li>
+</ul>
+<p>Since your learning data is located exclusively locally and in your personal
+iCloud, you can exercise many rights directly in the app or via your device's
+iCloud settings. You can also direct requests to the provider at any time (see
+section 1). This applies in particular to information about server-side
+processing (IP processing, OpenRouter forwarding) that is not visible in the
+app.</p>
+
+<h2>10. Children and minors</h2>
+<p>The app can also be used by minors. For the core functions of the app, no
+data-protection consent is required as a legal basis; processing is based on
+Art. 6(1)(b) GDPR (contract performance). Where consent should be required for
+individual future functions, the special legal requirements for minors under
+Art. 8 GDPR will be taken into account. Subscription purchases are handled via
+Apple StoreKit.</p>
+<p>To protect minors, the app shows a notice before each scan that only the
+vocabulary page should be photographed and that no people, names or personal
+notes may be visible in the image.</p>
+
+<h2>11. Changes to this privacy policy</h2>
+<p>This privacy policy may be updated if the functioning of the app changes or
+legal adjustments become necessary. The currently applicable version can be
+accessed at the URL of this page.</p>
+
+<h2>12. Contact</h2>
+<p>If you have questions about data protection, contact:<br>
+Christian Sothmann<br>
+Ahornstr. 31, 25474 Bönningstedt, Germany<br>
+Email: info@christian-sothmann.de</p>
+
+</body>
+</html>
