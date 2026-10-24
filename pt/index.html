@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidade – VokabelScan</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 720px; margin: 0 auto; padding: 24px 20px 60px; color: #1a1a1a; }
+  @media (prefers-color-scheme: dark) { body { color: #e0e0e0; background: #1a1a1a; } a { color: #6cb6ff; } }
+  h1 { font-size: 1.6rem; margin-bottom: 0.25em; }
+  h2 { font-size: 1.2rem; margin-top: 1.8em; border-bottom: 1px solid #888; padding-bottom: 0.2em; }
+  h3 { font-size: 1.05rem; margin-top: 1.4em; }
+  .meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.92rem; }
+  th, td { border: 1px solid #aaa; padding: 6px 10px; text-align: left; }
+  th { background: rgba(128,128,128,0.12); }
+  ul { padding-left: 1.3em; }
+  .note { background: rgba(128,128,128,0.08); padding: 12px 16px; border-radius: 8px; margin: 1em 0; }
+  .legal-basis { font-size: 0.88rem; color: #555; }
+  @media (prefers-color-scheme: dark) { .legal-basis { color: #aaa; } }
+</style>
+</head>
+<body>
+
+<h1>Política de privacidade</h1>
+<p class="meta">VokabelScan – app para iOS<br>Versão: 24 de setembro de 2026</p>
+
+<p class="note"><strong>Nota:</strong> esta é uma tradução da política de
+privacidade em alemão, fornecida por comodidade. O texto em alemão
+(<a href="https://christiansothmann.github.io/vokabelscan-privacy/">Datenschutzerklärung</a>)
+é o juridicamente vinculante.</p>
+
+<p>Esta política descreve como o app « VokabelScan » (abaixo « o app ») trata
+dados pessoais. O app é oferecido por Christian Sothmann, Ahornstr. 31, 25474
+Bönningstedt, Alemanha (abaixo « o fornecedor »).</p>
+
+<div class="note">
+<strong>Resumo:</strong> não é necessária conta. A maioria dos dados de
+aprendizado fica apenas no seu dispositivo ou, se ativado, no seu iCloud
+pessoal. Para o reconhecimento de vocabulário, a imagem escolhida é transmitida
+temporariamente à nossa infraestrutura de servidores e a um serviço de IA. Para
+evitar abusos, seu endereço IP é tratado por no máximo 48 h. Sem publicidade,
+sem rastreamento, sem analítica.
+</div>
+
+<h2>1. Responsável</h2>
+<p>Christian Sothmann<br>Ahornstr. 31, 25474 Bönningstedt, Alemanha<br>
+E-mail: info@christian-sothmann.de</p>
+
+<h2>2. Bases legais do tratamento</h2>
+<table>
+  <tr><th>Tratamento</th><th>Finalidade</th><th>Base legal</th></tr>
+  <tr><td>Transmissão da foto para reconhecimento</td><td>Executar o reconhecimento solicitado</td><td>Art. 6.1.b RGPD (execução contratual / medidas pré-contratuais)</td></tr>
+  <tr><td>Armazenamento do vocabulário local / iCloud</td><td>Fornecer a função de aprendizado</td><td>Art. 6.1.b RGPD</td></tr>
+  <tr><td>Status da assinatura Premium</td><td>Desbloquear funções ampliadas</td><td>Art. 6.1.b RGPD</td></tr>
+  <tr><td>Limitação de taxa por IP</td><td>Proteção contra abuso automatizado e custos de API ilimitados</td><td>Art. 6.1.f RGPD (interesse legítimo)</td></tr>
+</table>
+<p><strong>Interesse legítimo</strong> (lit. f): proteção da infraestrutura
+técnica e limitação dos custos de API por abuso.</p>
+<p>Para as funções principais, <strong>nenhum consentimento</strong> é exigido
+como base legal.</p>
+
+<h2>3. Que dados são tratados?</h2>
+
+<h3>3.1 Fotos para reconhecimento</h3>
+<p>Ao fotografar uma página de livro ou escolher uma foto, a imagem é enviada em
+JPEG por HTTPS criptografado a um Cloudflare Worker (nossa infraestrutura).</p>
+<p><strong>Importante:</strong> a foto pode conter dados pessoais – nomes,
+notas manuscritas, rostos. Fotografe apenas a página de vocabulário e
+certifique-se de que não apareçam pessoas, nomes ou notas pessoais. O app mostra
+um aviso antes de cada escaneio.</p>
+
+<p><strong>Cadeia de tratamento:</strong><br>
+App → Cloudflare Worker → OpenRouter → provedor do modelo de IA → OpenRouter →
+Cloudflare Worker → App</p>
+
+<p><strong>Armazenamento:</strong> o fornecedor não armazena a imagem
+permanentemente. No Worker, a imagem é processada apenas em memória. Para a
+análise de IA, a imagem vai para <strong>OpenRouter Inc.</strong> e o provedor
+do modelo usado.</p>
+
+<p><strong>Zero Data Retention (ZDR):</strong> imposta tecnicamente. Apenas
+endpoints que não armazenam permanentemente entradas/saídas após o tratamento.
+Uso para treino/melhoria de modelos proibido
+(<code>data_collection: "deny"</code>). OpenRouter pode tratar metadados
+técnicos (modelo, tokens, duração, custos). Fallback para provedor sem ZDR é
+excluído.</p>
+
+<h3>3.2 Vocabulário e progresso</h3>
+<p>Vocabulário reconhecido, entradas manuais e seu progresso são armazenados
+localmente (SwiftData). Com iCloud, sincronizam via <strong>Apple
+CloudKit</strong> no <strong>iCloud privado</strong> do usuário. VokabelScan
+não mantém base própria de usuários.</p>
+
+<h3>3.3 Contadores de cota de escaneio</h3>
+<p>Para acompanhar entre dispositivos os escaneos gratuitos usados, o app guarda
+um contador (p. ex., « 3 de 5 ») no iCloud Key-Value Store e localmente. Sem
+nomes, e-mails ou identificadores diretos; atribuível ao usuário na relação
+Apple ID/dispositivo.</p>
+
+<h3>3.4 Assinaturas Premium</h3>
+<p>Compra e gestão via <strong>Apple StoreKit</strong>. Dados de pagamento
+ficam na Apple. O app sabe apenas se a assinatura está ativa. Sem dados de
+pagamento tratados pelo app ou fornecedor.</p>
+
+<h3>3.5 Permissões do dispositivo</h3>
+<table>
+  <tr><th>Permissão</th><th>Finalidade</th></tr>
+  <tr><td>Câmera</td><td>Fotografar uma página de livro</td></tr>
+  <tr><td>Seleção de fotos</td><td>Escolher foto existente (seletor iOS)</td></tr>
+  <tr><td>iCloud</td><td>Sincronizar vocabulário e contadores entre dispositivos</td></tr>
+</table>
+<p>Todas as permissões exigem consentimento explícito e podem ser revogadas nos
+ajustes de iOS.</p>
+
+<h2>4. Tratamento no servidor (Cloudflare)</h2>
+<p>Dois tratamentos distintos :</p>
+
+<h3>4.1 Interface de IA (Cloudflare Worker)</h3>
+<p>A API roda em Cloudflare Workers. Dados de rede/requisição necessários são
+tratados. A imagem vai ao OpenRouter, sem armazenamento duradouro.</p>
+<p class="legal-basis">Base legal: Art. 6.1.b RGPD (execução do contrato).</p>
+
+<h3>4.2 Anti-abuso / limitação de taxa (Cloudflare Workers KV)</h3>
+<p>Seu <strong>endereço IP</strong> é guardado com a data como contador
+(<code>scans:&lt;IP&gt;:&lt;data&gt;</code>) no Workers KV a cada requisição.
+<strong>Excluído automaticamente após 48 h</strong>. O IP não é vinculado a
+outros dados nem usado para outros fins.</p>
+<p class="legal-basis">Base legal: Art. 6.1.f RGPD. Duração: máx. 48 h.</p>
+
+<h2>5. O que não é coletado</h2>
+<ul>
+  <li>Sem analítica ou rastreamento</li><li>Sem SDKs publicitários</li>
+  <li>Sem criação de conta</li><li>Sem cookies</li>
+  <li>Sem dados de localização</li><li>Sem acesso a contatos</li>
+  <li>Sem identificador publicitário (IDFA)</li>
+</ul>
+
+<h2>6. Subprocessadores e terceiros</h2>
+
+<h3>6.1 Apple iCloud (CloudKit)</h3>
+<p>Sincronização de dados de aprendizado e contadores. <a href="https://www.apple.com/legal/privacy/">Política da Apple</a>.</p>
+
+<h3>6.2 Apple StoreKit</h3>
+<p>Assinaturas; pagamento na Apple. <a href="https://www.apple.com/legal/privacy/">Política da Apple</a>.</p>
+
+<h3>6.3 Cloudflare Inc. (subprocessador)</h3>
+<p>Operação da API e armazenamento dos contadores de taxa. DPA no contrato.
+<a href="https://www.cloudflare.com/privacypolicy/">Política da Cloudflare</a>.</p>
+
+<h3>6.4 OpenRouter Inc. (subprocessador)</h3>
+<p>Reconhecimento IA; imagem vai ao OpenRouter e ao provedor do modelo, sob
+<strong>configuração Zero Data Retention</strong>. DPA via termos de uso.
+<a href="https://openrouter.ai/privacy">Política da OpenRouter</a>.</p>
+
+<p>Os links complementam, não substituem, as obrigações informativas aqui.</p>
+
+<h2>7. Transferências a países terceiros</h2>
+<p>Cloudflare e OpenRouter são empresas dos EUA; pode haver tratamento fora do
+EEE. A transferência ocorre com base em decisão de adequação aplicável ou, em
+caso contrário, em garantias adequadas (Art. 46 RGPD), em especial as
+<strong>Cláusulas Contratuais Padrão da Comissão Europeia</strong> :</p>
+<ul>
+  <li><strong>Cloudflare:</strong> CCP UE no DPA.</li>
+  <li><strong>OpenRouter:</strong> CCP UE (Módulo 2 Responsável → Subprocessador) no DPA.</li>
+</ul>
+
+<h2>8. Conservação e supressão</h2>
+<table>
+  <tr><th>Dados</th><th>Local</th><th>Conservação</th></tr>
+  <tr><td>Vocabulário / progresso</td><td>Dispositivo + iCloud</td><td>Até excluir no app</td></tr>
+  <tr><td>Contador de cota</td><td>iCloud KVS + dispositivo</td><td>Até desinstalar/reiniciar</td></tr>
+  <tr><td>Contador de taxa (IP)</td><td>Cloudflare KV</td><td>48 h, depois exclusão auto</td></tr>
+  <tr><td>Fotos</td><td>Trânsito de tratamento</td><td>Não armazenadas; com endpoint ZDR, entrada/saída não guardadas após tratamento. OpenRouter pode guardar metadados técnicos (ver 3.1).</td></tr>
+</table>
+<p>Você pode excluir vocabulário e escaneios no app. Desinstalar remove os dados
+locais.</p>
+
+<h2>9. Seus direitos (RGPD)</h2>
+<ul>
+  <li><strong>Acesso</strong> (Art. 15), <strong>retificação</strong> (Art. 16), <strong>supressão</strong> (Art. 17), <strong>limitação</strong> (Art. 18), <strong>portabilidade</strong> (Art. 20)</li>
+  <li><strong>Oposição</strong> ao tratamento baseado no Art. 6.1.f (Art. 21) — em particular a limitação de taxa por IP</li>
+  <li><strong>Reclamação a uma autoridade de controle</strong> (Art. 77), presumivelmente o <em>Centro Estatal Independente de Proteção de Dados de Schleswig-Holstein (ULD)</em>, Holstenstraße 98, 24103 Kiel, Alemanha, https://www.datenschutzzentrum.de.</li>
+</ul>
+<p>Muitos direitos podem ser exercidos no app ou nos ajustes de iCloud. Para
+tratamento no servidor, contate o fornecedor (seção 1).</p>
+
+<h2>10. Crianças e menores</h2>
+<p>O app pode ser usado por menores. As funções principais não exigem
+consentimento (Art. 6.1.b RGPD). Se consentimento se tornar necessário, os
+requisitos do Art. 8 RGPD serão considerados. Compras de assinatura via Apple
+StoreKit.</p>
+<p>Um aviso antes de cada escaneio lembra de fotografar apenas a página de
+vocabulário, sem pessoas, nomes ou notas pessoais.</p>
+
+<h2>11. Alterações</h2>
+<p>Esta política pode ser atualizada se o app mudar ou por motivos legais. A
+versão vigente está na URL desta página.</p>
+
+<h2>12. Contato</h2>
+<p>Christian Sothmann<br>Ahornstr. 31, 25474 Bönningstedt, Alemanha<br>
+E-mail: info@christian-sothmann.de</p>
+
+</body>
+</html>
